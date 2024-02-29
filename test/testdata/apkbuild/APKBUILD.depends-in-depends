@@ -1,0 +1,8 @@
+pkgname="depends-in-depends"
+pkgver="1.0.0"
+pkgrel=0
+arch="armhf"
+depends="first"
+depends="$depends second"
+depends="${depends} third"
+pkgdesc="depends-in-depends test"

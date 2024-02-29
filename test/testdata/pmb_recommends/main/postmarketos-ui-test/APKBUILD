@@ -1,0 +1,13 @@
+pkgname=postmarketos-ui-test
+pkgver=1
+pkgrel=0
+license="GPL-3.0-or-later"
+depends=""
+subpackages="$pkgname-extras"
+arch="all"
+
+_pmb_recommends="plasma-camera plasma-angelfish"
+
+extras() {
+	_pmb_recommends="buho kaidan test-app"
+}

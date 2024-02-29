@@ -1,0 +1,25 @@
+C:Q1gKkFdQUwKAmcUpGY8VaErq0uHNo=
+P:musl
+V:1.1.18-r5
+V:1.1.18-r5
+A:x86_64
+S:357094
+I:581632
+T:the musl c library (libc) implementation
+U:http://www.musl-libc.org/
+L:MIT
+o:musl
+m:Timo Ter  s <timo.teras@iki.fi>
+t:1515217616
+c:6cc1d4e6ac35607dd09003e4d013a0d9c4800c49
+p:so:libc.musl-x86_64.so.1=1
+F:lib
+R:libc.musl-x86_64.so.1
+a:0:0:777
+Z:Q17yJ3JFNypA4mxhJJr0ou6CzsJVI=
+R:ld-musl-x86_64.so.1
+a:0:0:755
+Z:Q1DadJ0cqdT+ImyeY5FgTdZWaLnyQ=
+F:usr
+F:usr/lib
+

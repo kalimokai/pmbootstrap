@@ -1,0 +1,20 @@
+pkgname="linux-envkernel-test"
+
+package() {
+	install -Dm644 "$srcdir"/build/arch/arm/boot/dt.img \
+		"$pkgdir"/boot/dt.img
+
+	install -Dm644 "$srcdir"/build/arch/arm/boot/zImage-dtb \
+		"$pkgdir"/boot/vmlinuz-$_flavor
+
+	install -D "$srcdir"/build/include/config/kernel.release \
+		"$pkgdir"/usr/share/kernel/$_flavor/kernel.release
+
+	cd "$srcdir"/build
+	unset LDFLAGS
+
+	echo "--[ Installing modules ]--"
+	make ARCH="$_carch" CC="${CC:-gcc}" \
+		KBUILD_BUILD_VERSION="$((pkgrel + 1))-Alpine" CONFIG_NO_ERROR_ON_MISMATCH=y \
+		INSTALL_MOD_PATH="$pkgdir" INSTALL_MOD_STRIP=1 modules_install
+}

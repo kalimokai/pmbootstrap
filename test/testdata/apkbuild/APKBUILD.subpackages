@@ -1,0 +1,17 @@
+pkgname="subpackages"
+arch="noarch"
+subpackages="simple custom:custom_function different_arch::x86_64"
+depends="postmarketos-base"
+
+simple() {
+	mkdir "$subpkgdir"
+}
+
+custom_function() {
+	pkgdesc="This is one of the custom $pkgname"
+	depends="$depends glibc"
+}
+
+different_arch() {
+	pkgdesc="This has a different architecture than the other $pkgname"
+}

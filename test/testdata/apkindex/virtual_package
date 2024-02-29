@@ -1,0 +1,31 @@
+C:Q1XaZzCVZ9mvH8djPyEb5aUYhG3r4=
+P:hello-world
+V:2-r0
+A:x86_64
+S:2897
+I:20480
+T:hello world program to be built in the testsuite
+U:https://en.wikipedia.org/wiki/%22Hello,_World!%22_program
+L:MIT
+o:hello-world
+t:1500000000
+c:
+D:so:libc.musl-x86_64.so.1
+p:cmd:hello-world
+F:usr
+F:usr/bin
+R:hello-world
+a:0:0:755
+Z:Q1ZjTpsnMchSsSwEPB1cTjihYuJvo=
+
+C:Q127l1Ui9vzedbeR3BMelZnSa4pwY=
+P:.pmbootstrap
+V:0
+A:noarch
+S:0
+I:0
+T:virtual meta package
+U:
+L:
+D:hello-world
+

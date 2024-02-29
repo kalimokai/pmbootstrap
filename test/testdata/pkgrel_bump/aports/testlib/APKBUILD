@@ -1,0 +1,38 @@
+pkgname=testlib
+pkgver=1.0
+pkgrel=0
+pkgdesc="testing soname bumps (soname changes with pkgrel!)"
+url="https://postmarketos.org"
+arch="all"
+license="MIT"
+depends=""
+makedepends=""
+subpackages=""
+source="testlib.c testlib.h"
+options="!check"
+
+build() {
+	cd "$srcdir"
+	local major="$pkgrel"
+	local minor="0"
+	local soname="libtestlib.so.$major"
+	local realname="libtestlib.so.$minor.$major"
+
+	$CC -fPIC -c -g -Wall testlib.c -o libtestlib.o
+	$CC -shared -Wl,-soname,$soname -o $realname libtestlib.o
+	ln -sf $realname $soname
+	ln -sf $soname "libtestlib.so"
+}
+
+package() {
+	cd "$srcdir"
+	install -Dm755 testlib.h "$pkgdir/usr/include/testlib.h"
+
+	mkdir -p "$pkgdir/usr/lib/"
+	local i
+	for i in *.so*; do
+		cp -a "$i" "$pkgdir/usr/lib/$i"
+	done
+}
+sha512sums="15c671462a2f043e798b2998e8706f3ac119648c3d3ae946a0115c1f1aec567537f44e7e778bc77d3af4cd05a2d684677dabd56bb35799fca5939c6c087b4e27  testlib.c
+16be61567995052e20f9436c6834c2ca2afcfb04fea15c5d02eb576ecfdc9ef4fed8d977468b2564bbe934d098d111837d96cc323dae3f4dd033aa1d061063ee  testlib.h"

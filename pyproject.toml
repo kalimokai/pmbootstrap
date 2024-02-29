@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pmbootstrap"
+dynamic = ["version"]
+authors = [
+  {name = "postmarketOS Developers", email="info@postmarketos.org"}
+]
+description = "A sophisticated chroot / build / flash tool to develop and install postmarketOS'"
+readme = "README.md"
+license = {text = "GPL-3.0-or-later"}
+
+[project.scripts]
+pmbootstrap = "pmb:main"
+
+[project.optional-dependencies]
+test = ["pytest"]
+completion = ["argcomplete"]
+
+[project.urls]
+Homepage = "https://www.postmarketos.org"
+
+[tool.setuptools.dynamic]
+version = {attr =  "pmb.__version__"}
+
+[tool.setuptools.packages.find]
+exclude = ["aports", "keys", "test", "test.pmb_test"]
+
+[tool.ruff]
+# E402: module import not on top of file, not possible for testcases
+# E722: do not use bare except
+ignore=["E402", "E722"]
+line-length=100

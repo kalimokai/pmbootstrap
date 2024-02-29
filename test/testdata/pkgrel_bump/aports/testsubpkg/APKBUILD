@@ -1,0 +1,33 @@
+pkgname=testsubpkg
+pkgver=1.0
+pkgrel=0
+pkgdesc="subpackage using the testlib (for testing soname bumps)"
+url="https://postmarketos.org"
+arch="all"
+license="MIT"
+depends=""
+makedepends="testlib"
+subpackages="$pkgname-app"
+source="testapp.c"
+options=""
+
+build() {
+	cd "$srcdir"
+	$CC testapp.c -o testapp -L/usr/lib/ -ltestlib
+}
+
+check() {
+	cd "$srcdir"
+	printf 'hello, world from testlib!\n' > expected
+	./testapp > real
+	diff -q expected real
+}
+
+package() {
+    mkdir -p "$pkgdir"
+}
+
+app() {
+	install -Dm755 "$srcdir/testapp" "$subpkgdir/usr/bin/testapp"
+}
+sha512sums="73b167575dc0082a1277b0430f095509885c7aaf55e59bad148825a9879f91fe41c6479bb7f34c0cdd15284b0aadd904a5ba2c1ea85fb8bfb061e1cbf4322d76  testapp.c"

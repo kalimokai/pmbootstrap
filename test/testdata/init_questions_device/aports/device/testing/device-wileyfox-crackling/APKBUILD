@@ -1,0 +1,60 @@
+# Reference: <https://postmarketos.org/devicepkg>
+pkgname="device-wileyfox-crackling"
+pkgdesc="Wileyfox Swift"
+pkgver=2
+pkgrel=0
+url="https://postmarketos.org"
+license="MIT"
+arch="aarch64"
+options="!check !archcheck"
+depends="postmarketos-base mkbootimg"
+makedepends="devicepkg-dev"
+subpackages="
+	$pkgname-kernel-mainline:kernel_mainline
+        $pkgname-kernel-mainline-modem:kernel_mainline_modem
+	$pkgname-kernel-downstream:downstream
+	$pkgname-nonfree-firmware:nonfree_firmware
+        $pkgname-nonfree-firmware-modem:nonfree_firmware_modem
+"
+
+source="deviceinfo"
+
+build() {
+	devicepkg_build $startdir $pkgname
+}
+
+package() {
+	devicepkg_package $startdir $pkgname
+}
+
+kernel_mainline() {
+	pkgdesc="Mainline kernel (no modem)"
+	depends="linux-postmarketos-qcom-msm8916 soc-qcom-msm8916"
+	devicepkg_subpackage_kernel $startdir $pkgname $subpkgname
+}
+
+kernel_mainline_modem() {
+	pkgdesc="Mainline kernel (with modem)"
+	depends="linux-postmarketos-qcom-msm8916 soc-qcom-msm8916 soc-qcom-msm8916-modem"
+	devicepkg_subpackage_kernel $startdir $pkgname $subpkgname
+}
+
+# This is renamed to test the APKBUILD parser. In reality they should always use proper names.
+downstream() {
+	pkgdesc="Downstream kernel"
+	depends="linux-wileyfox-crackling mesa-dri-swrast mdss-fb-init-hack"
+	devicepkg_subpackage_kernel $startdir $pkgname $subpkgname
+}
+
+nonfree_firmware() {
+	pkgdesc="GPU/WiFi/BT/Video firmware"
+	depends="linux-firmware-qcom firmware-wileyfox-crackling-venus firmware-wileyfox-crackling-wcnss"
+	mkdir "$subpkgdir"
+}
+
+nonfree_firmware_modem() {
+	pkgdesc="Modem firmware"
+	depends="firmware-wileyfox-crackling-modem"
+	install_if="$pkgname-nonfree-firmware $pkgname-kernel-mainline-modem"
+	mkdir "$subpkgdir"
+}

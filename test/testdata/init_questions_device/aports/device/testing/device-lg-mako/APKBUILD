@@ -1,0 +1,16 @@
+# This is not a real aport, it's for the "pmbootstrap init" questions test
+
+pkgname=device-lg-mako
+pkgver=2
+pkgrel=16
+pkgdesc="Google Nexus 4"
+url="https://postmarketos.org"
+arch="noarch"
+license="MIT"
+depends="linux-lg-mako mkbootimg mesa-dri-swrast"
+makedepends=""
+install=""
+subpackages="$pkgname-weston"
+source=""
+options="!check"
+

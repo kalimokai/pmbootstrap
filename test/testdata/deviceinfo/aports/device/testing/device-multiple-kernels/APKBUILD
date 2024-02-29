@@ -1,0 +1,29 @@
+pkgname=device-multiple-kernels
+pkgver=5
+pkgrel=1
+pkgdesc="Device with multiple kernels"
+url="https://postmarketos.org"
+arch="noarch"
+license="MIT"
+depends=""
+makedepends=""
+install=""
+source=""
+options=""
+subpackages="
+	$pkgname-kernel-downstream:kernel_downstream
+	$pkgname-kernel-mainline:kernel_mainline
+	$pkgname-kernel-mainline-modem:kernel_mainline_modem
+"
+
+kernel_downstream() {
+	pkgdesc="Downstream kernel"
+}
+
+kernel_mainline() {
+	pkgdesc="Close to mainline kernel"
+}
+
+kernel_mainline_modem() {
+	pkgdesc="Close to mainline kernel (with some modem stuff)"
+}

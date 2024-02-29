@@ -1,0 +1,11 @@
+pkgname=postmarketos-ui-plasma-mobile
+pkgver=42
+pkgrel=0
+pkgdesc="cool pkgdesc"
+url="https://postmarketos.org"
+arch="noarch !armhf"
+license="GPL-3.0-or-later"
+
+package() {
+        mkdir "$pkgdir"
+}

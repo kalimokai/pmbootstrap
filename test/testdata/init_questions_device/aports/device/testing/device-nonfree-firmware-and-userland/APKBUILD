@@ -1,0 +1,33 @@
+# Reference: <https://postmarketos.org/devicepkg>
+pkgname="device-nonfree-firmware-and-userland"
+pkgdesc="Test device for nonfree questions"
+pkgver=0.1
+pkgrel=0
+url="https://postmarketos.org"
+license="MIT"
+arch="noarch"
+options="!check"
+depends="mesa-dri-swrast"
+makedepends="devicepkg-dev"
+source="deviceinfo"
+subpackages="$pkgname-nonfree-firmware:nonfree_firmware $pkgname-nonfree-userland:nonfree_userland"
+
+build() {
+	devicepkg_build $startdir $pkgname
+}
+
+package() {
+	devicepkg_package $startdir $pkgname
+}
+
+nonfree_firmware() {
+	pkgdesc="firmware description"
+	mkdir "$subpkgdir"
+}
+
+nonfree_userland() {
+	pkgdesc="userland description"
+	mkdir "$subpkgdir"
+}
+
+sha512sums="71c640728d3ade4bea402523c1cdb30e0edac585948cfae987bac9f001a0eb572e5be9ea2babef4eb8f9f6437a3677ce3e7be398e00865a6d3f781a8d4b3bf5d  deviceinfo"

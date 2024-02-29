@@ -1,0 +1,10 @@
+# Reference: <https://postmarketos.org/devicepkg>
+# Unmaintained: This is broken!
+pkgname="missing-pkgdesc-in-subpackage"
+arch="noarch"
+subpackages="$pkgname-subpackage invalid-function:does_not_exist"
+
+subpackage() {
+	# this function does not have a pkgdesc
+	mkdir "$subpkgdir"
+}

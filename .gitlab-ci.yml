@@ -1,0 +1,63 @@
+image: alpine:edge
+
+# The mr-settings check needs to run in a MR specific context. With this block,
+# the whole pipeline runs in that context for MRs. Otherwise we would have two
+# pipelines for MRs.
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_BRANCH == 'master'
+    - if: $CI_COMMIT_BRANCH == 'wip'
+
+before_script:
+  - ".ci/note.sh"
+  - "echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories"
+  - "adduser -D build"
+
+stages:
+  - lint
+  - test
+
+codespell:
+  stage: lint
+  script:
+    - ".ci/codespell.sh"
+
+pytest:
+  stage: test
+  script:
+    - "apk -q add git"
+    - "su build -c 'git config --global user.email ci@ci'"
+    - "su build -c 'git config --global user.name CI'"
+    - "echo 'build ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers"
+    - ".ci/pytest.sh"
+
+ruff:
+  stage: lint
+  script:
+    - ".ci/ruff.sh"
+
+shellcheck:
+  stage: lint
+  script:
+    - ".ci/shellcheck.sh"
+
+vermin:
+  stage: lint
+  script:
+    - ".ci/vermin.sh"
+
+mr-settings:
+  stage: lint
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+  before_script:
+    - "apk -q add python3"
+    - "wget -q 'https://gitlab.com/postmarketOS/ci-common/-/raw/master/check_mr_settings.py'"
+  script:
+    - "python3 ./check_mr_settings.py"
+
+mypy:
+  stage: lint
+  script:
+    - ".ci/mypy.sh"

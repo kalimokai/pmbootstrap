@@ -1,0 +1,31 @@
+pkgname=hello-world
+pkgver=1
+pkgrel=0
+pkgdesc="hello world program for testing 'pmbootstrap build --src'"
+url="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program"
+arch="all"
+license="MIT"
+depends=""
+makedepends=""
+subpackages=""
+source="non-existing-file.c" # this will be overridden by --src
+options=""
+
+build() {
+	cd "$builddir"
+	make
+}
+
+check() {
+	cd "$builddir"
+	printf 'hello, world!\n' > expected
+	./hello-world > real
+	diff -q expected real
+}
+
+package() {
+	install -D -m755 "$builddir"/hello-world \
+		"$pkgdir"/usr/bin/hello-world
+}
+# These will be overridden as well
+sha512sums="d5ad91600d9be3e53be4cb6e5846b0757786c947b2c0d10f612f67262fc91c148e8d73621623e259ca9dcd5e2c8ec7069cebec44165e203ea8c0133669d3382d invalid-file.c"

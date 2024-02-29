@@ -1,0 +1,16 @@
+pkgname=postmarketos-ui-weston
+pkgver=42
+pkgrel=0
+pkgdesc="(Wayland) Reference compositor (demo, not a phone interface)"
+url="https://postmarketos.org"
+arch="noarch"
+license="GPL-3.0-or-later"
+subpackages="$pkgname-extras"
+
+package() {
+        mkdir "$pkgdir"
+}
+
+extras() {
+        pkgdesc="Super cool extras you will definitely (not?) need"
+}
